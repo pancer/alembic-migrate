@@ -1,18 +1,18 @@
 import click
-from raw_migrate import init as _init
-from raw_migrate import revision as _revision
-from raw_migrate import migrate as _migrate
-from raw_migrate import edit as _edit
-from raw_migrate import merge as _merge
-from raw_migrate import upgrade as _upgrade
-from raw_migrate import downgrade as _downgrade
-from raw_migrate import show as _show
-from raw_migrate import history as _history
-from raw_migrate import heads as _heads
-from raw_migrate import branches as _branches
-from raw_migrate import current as _current
-from raw_migrate import stamp as _stamp
-from raw_migrate import Migrate
+from . import init as _init
+from . import revision as _revision
+from . import migrate as _migrate
+from . import edit as _edit
+from . import merge as _merge
+from . import upgrade as _upgrade
+from . import downgrade as _downgrade
+from . import show as _show
+from . import history as _history
+from . import heads as _heads
+from . import branches as _branches
+from . import current as _current
+from . import stamp as _stamp
+from . import Migrate
 from functools import wraps
 import os
 

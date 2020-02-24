@@ -1,7 +1,7 @@
-raw-migrate
+alembic-migrate
 =============
 
-raw-migrate is a Flask-Migrate fork that works independently of Flask.
+alembic-migrate is a framework-independent fork of flask-migrate.
 
 Installation
 ------------
