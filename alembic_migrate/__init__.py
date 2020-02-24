@@ -11,6 +11,9 @@ from alembic.util import CommandError
 alembic_version = tuple([int(v) for v in __alembic_version__.split('.')[0:3]])
 log = logging.getLogger()
 
+def set_app(app):
+    global current_app
+    current_app = app
 
 class _MigrateConfig(object):
     def __init__(self, migrate, db, **kwargs):

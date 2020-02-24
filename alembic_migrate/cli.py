@@ -13,18 +13,53 @@ from . import branches as _branches
 from . import current as _current
 from . import stamp as _stamp
 from . import Migrate
-from functools import wraps
 import os
+import sys
+import importlib
 
 class MockApp(object):
     def __init__(self):
         self.extensions = {}
 
+def get_base():
+    importlib.invalidate_caches()
+
+    sys.path.insert(0, ".")
+    ALEMBIC_BASE = os.environ.get("ALEMBIC_BASE", "model.base")
+    try:
+        base_module = importlib.import_module(ALEMBIC_BASE)
+    except:
+        sys.stderr.write("Cannot import base module '{}'. Please create it and implement 'get_base()'.\n".format(ALEMBIC_BASE))
+        sys.exit(1)
+    base_dict = base_module.get_base()
+    Base, url = base_dict['base'], base_dict['sqlalchemy_url']
+    return Base, url
+
+def import_models():
+    import pkgutil
+
+    ALEMBIC_BASE = os.environ.get("ALEMBIC_BASE", "model.base")
+    base_module = importlib.import_module(ALEMBIC_BASE)
+    if hasattr(base_module, 'import_models'):
+        base_module.import_models()
+        return
+
+    base_parts = ALEMBIC_BASE.split(".")
+    if len(base_parts) < 2: return
+
+    pkgpath = os.path.dirname(base_module.__file__)
+    for module in pkgutil.iter_modules([pkgpath]):
+        if module.ispkg or module.name == 'base': continue
+        full_path = "{pkg}.{mod}".format(mod=module.name, pkg=".".join(base_parts[:-1]))
+        importlib.import_module(full_path)
 
 def with_appcontext(fn):
     app = MockApp()
-    fn.__globals__['current_app'] = app
-    Base, url = __import__(os.environ.get("DB_MODULE", "db")).get_db()
+    from . import set_app
+    set_app(app)
+
+    Base, url = get_base()
+    import_models()
     Migrate().init_app(app, Base)
     return fn
 

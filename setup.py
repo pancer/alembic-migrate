@@ -1,9 +1,3 @@
-"""
-alembic-migrate
---------------
-
-A framework-independent fork of flask-migrate.
-"""
 from setuptools import setup
 
 
@@ -12,12 +6,11 @@ VERSION = open('__version__').read()
 setup(
     name='alembic-migrate',
     version=VERSION,
-    url='https://github.com/withmehealth/raw-migrate',
+    url='https://github.com/withmehealth/alembic-migrate',
     license='MIT',
     author='Filip Dimitrovski',
     author_email='filipdimitrovski22@gmail.com',
     description=('A framework-independent fork of flask-migrate.'),
-    long_description=__doc__,
     packages=['alembic_migrate'],
     zip_safe=False,
     include_package_data=True,
@@ -28,10 +21,9 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'alembic-db = alembic_migrate.cli.db'
+            'alembic-db = alembic_migrate.cli:db'
         ],
     },
-    test_suite="tests",
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',

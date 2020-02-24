@@ -22,8 +22,10 @@ logger = logging.getLogger('alembic.env')
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
+from alembic_migrate.cli import get_base, import_models
 
-target_base, url = __import__(os.environ.get('DB_MODULE', 'db')).get_db()
+target_base, url = get_base()
+import_models()
 
 config.set_main_option(
     'sqlalchemy.url',
