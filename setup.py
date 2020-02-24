@@ -10,22 +10,19 @@ from setuptools import setup
 VERSION = open('__version__').read()
 
 setup(
-    name='Flask-Migrate',
+    name='raw-migrate',
     version=VERSION,
-    url='http://github.com/miguelgrinberg/flask-migrate/',
+    url='https://github.com/withmehealth/raw-migrate',
     license='MIT',
-    author='Miguel Grinberg',
-    author_email='miguelgrinberg50@gmail.com',
-    description=('SQLAlchemy database migrations for Flask applications '
-                 'using Alembic'),
+    author='Filip Dimitrovski',
+    author_email='filipdimitrovski22@gmail.com',
+    description=('A fork of flask-migrate that is independent.'),
     long_description=__doc__,
-    packages=['flask_migrate'],
+    packages=['raw_migrate'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
     install_requires=[
-        'Flask>=0.9',
-        'Flask-SQLAlchemy>=1.0',
         'alembic>=0.7'
     ],
     tests_require=[
