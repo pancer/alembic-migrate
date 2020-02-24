@@ -58,7 +58,7 @@ The base module contains `get_base() -> dict`. By default `model.base` is used b
 export ALEMBIC_BASE="my_model.base"
 ```
 
-### Model import logic
+### Customize model import logic
 
 By default, all `*.py` files in the same package as the base will be loaded.
 However if you want to split your models in subpackages or have custom logic
