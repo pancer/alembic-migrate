@@ -35,4 +35,6 @@ tests/temp_folder
 .mr.developer.cfg
 .project
 .pydevproject
+
 .idea/
+venv/

@@ -23,14 +23,12 @@ setup(
     include_package_data=True,
     platforms='any',
     install_requires=[
-        'alembic>=0.7'
-    ],
-    tests_require=[
-        'Flask-Script>=0.6'
+        'alembic>=0.7',
+        'click'
     ],
     entry_points={
-        'flask.commands': [
-            'db=flask_migrate.cli:db'
+        'entry_point': [
+            'r-db = raw_migrate.cli.db'
         ],
     },
     test_suite="tests",

@@ -3,11 +3,6 @@ from functools import wraps
 import logging
 import os
 import sys
-from flask import current_app
-try:
-    from flask_script import Manager
-except ImportError:
-    Manager = None
 from alembic import __version__ as __alembic_version__
 from alembic.config import Config as AlembicConfig
 from alembic import command
@@ -98,7 +93,7 @@ def catch_errors(f):
             sys.exit(1)
     return wrapped
 
-
+Manager = None
 if Manager is not None:
     MigrateCommand = Manager(usage='Perform database migrations')
 else:
@@ -128,10 +123,7 @@ def init(directory=None, multidb=False):
     config.config_file_name = os.path.join(directory, 'alembic.ini')
     config = current_app.extensions['migrate'].\
         migrate.call_configure_callbacks(config)
-    if multidb:
-        command.init(config, directory, 'flask-multidb')
-    else:
-        command.init(config, directory, 'flask')
+    command.init(config, directory, 'app')
 
 
 @MigrateCommand.option('--rev-id', dest='rev_id', default=None,

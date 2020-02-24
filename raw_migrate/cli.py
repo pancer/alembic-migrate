@@ -1,18 +1,28 @@
 import click
-from flask.cli import with_appcontext
-from flask_migrate import init as _init
-from flask_migrate import revision as _revision
-from flask_migrate import migrate as _migrate
-from flask_migrate import edit as _edit
-from flask_migrate import merge as _merge
-from flask_migrate import upgrade as _upgrade
-from flask_migrate import downgrade as _downgrade
-from flask_migrate import show as _show
-from flask_migrate import history as _history
-from flask_migrate import heads as _heads
-from flask_migrate import branches as _branches
-from flask_migrate import current as _current
-from flask_migrate import stamp as _stamp
+from raw_migrate import init as _init
+from raw_migrate import revision as _revision
+from raw_migrate import migrate as _migrate
+from raw_migrate import edit as _edit
+from raw_migrate import merge as _merge
+from raw_migrate import upgrade as _upgrade
+from raw_migrate import downgrade as _downgrade
+from raw_migrate import show as _show
+from raw_migrate import history as _history
+from raw_migrate import heads as _heads
+from raw_migrate import branches as _branches
+from raw_migrate import current as _current
+from raw_migrate import stamp as _stamp
+from functools import wraps
+
+class MockApp(object):
+    def __init__(self):
+        self.extensions = {}
+
+
+def with_appcontext(fn):
+    fn.__globals__['current_app'] = MockApp()
+    return fn
+
 
 @click.group()
 def db():
