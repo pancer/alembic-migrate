@@ -62,7 +62,7 @@ However if you want to split your models in subpackages or have custom logic
 you should implement `import_modules` inside your base module.
 
 ```python
-def import_modules():
+def import_models():
    from . import car, book
    from .sub import other_models
 
