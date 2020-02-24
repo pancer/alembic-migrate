@@ -62,7 +62,7 @@ export ALEMBIC_BASE="my_model.base"
 
 By default, all `*.py` files in the same package as the base will be loaded.
 However if you want to split your models in subpackages or have custom logic
-you should implement `import_modules` inside your base module.
+you should implement `import_models` inside your base module.
 
 ```python
 def import_models():
