@@ -27,7 +27,7 @@ setup(
         'click'
     ],
     entry_points={
-        'entry_point': [
+        'console_scripts': [
             'r-db = raw_migrate.cli.db'
         ],
     },

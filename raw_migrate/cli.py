@@ -12,7 +12,9 @@ from raw_migrate import heads as _heads
 from raw_migrate import branches as _branches
 from raw_migrate import current as _current
 from raw_migrate import stamp as _stamp
+from raw_migrate import Migrate
 from functools import wraps
+import os
 
 class MockApp(object):
     def __init__(self):
@@ -20,7 +22,10 @@ class MockApp(object):
 
 
 def with_appcontext(fn):
-    fn.__globals__['current_app'] = MockApp()
+    app = MockApp()
+    fn.__globals__['current_app'] = app
+    Base, url = __import__(os.environ.get("DB_MODULE", "db")).get_db()
+    Migrate().init_app(app, Base)
     return fn
 
 
