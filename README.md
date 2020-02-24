@@ -20,9 +20,12 @@ model/
   ├── book.py 
 ```
 
-Then declare your SQLAlchemy Base and connection string in `model/base.py`:
+Then declare your SQLAlchemy Base and connection string in `model/base.py`.
+*Note: the connection string doesn't need to match your
+app's DB connection, it's only used for migrations.*
 
 ```python
+# model/base.py
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
