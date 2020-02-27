@@ -1,3 +1,2 @@
-include __version__ README.md LICENSE flask_migrate/templates/flask/* \
-flask_migrate/templates/flask-multidb/* tests/*
+include __version__ README.md LICENSE alembic_migrate/templates/app/* tests/*
 
