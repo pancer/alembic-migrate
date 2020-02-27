@@ -3,6 +3,11 @@ from setuptools import setup
 
 VERSION = open('__version__').read()
 
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name='alembic-migrate',
     version=VERSION,
@@ -11,6 +16,8 @@ setup(
     author='Filip Dimitrovski',
     author_email='filipdimitrovski22@gmail.com',
     description=('A framework-independent fork of flask-migrate.'),
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=['alembic_migrate'],
     zip_safe=False,
     include_package_data=True,
