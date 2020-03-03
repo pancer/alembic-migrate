@@ -28,10 +28,10 @@ def get_base():
     ALEMBIC_BASE = os.environ.get("ALEMBIC_BASE", "model.base")
     try:
         base_module = importlib.import_module(ALEMBIC_BASE)
-    except:
+        base_dict = base_module.get_base()
+    except (ModuleNotFoundError, AttributeError):
         sys.stderr.write("Cannot import base module '{}'. Please create it and implement 'get_base()'.\n".format(ALEMBIC_BASE))
         sys.exit(1)
-    base_dict = base_module.get_base()
     Base, url = base_dict['base'], base_dict['sqlalchemy_url']
     return Base, url
 
