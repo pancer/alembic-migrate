@@ -16,6 +16,7 @@ from . import Migrate
 import os
 import sys
 import importlib
+import traceback
 
 class MockApp(object):
     def __init__(self):
@@ -30,7 +31,9 @@ def get_base():
         base_module = importlib.import_module(ALEMBIC_BASE)
         base_dict = base_module.get_base()
     except (ModuleNotFoundError, AttributeError):
-        sys.stderr.write("Cannot import base module '{}'. Please create it and implement 'get_base()'.\n".format(ALEMBIC_BASE))
+        sys.stderr.write("Cannot import base module '{}'. Please create it and " + \
+                         "implement 'get_base()'.\nThe error raised was:\n".format(ALEMBIC_BASE))
+        sys.stderr.write(traceback.format_exc())
         sys.exit(1)
     Base, url = base_dict['base'], base_dict['sqlalchemy_url']
     return Base, url
